@@ -1,9 +1,9 @@
 # Copyright (C) 2014-2015 ARM Limited. All rights reserved.
 
-if(TARGET_FRDM_K64F_GCC_TOOLCHAIN_INCLUDED)
+if(TARGET_MK64F_GCC_TOOLCHAIN_INCLUDED)
     return()
 endif()
-set(TARGET_FRDM_K64F_GCC_TOOLCHAIN_INCLUDED 1)
+set(TARGET_MK64F_GCC_TOOLCHAIN_INCLUDED 1)
 
 # provide compatibility definitions for compiling with this target: these are
 # definitions that legacy code assumes will be defined. Before adding something
@@ -11,7 +11,7 @@ set(TARGET_FRDM_K64F_GCC_TOOLCHAIN_INCLUDED 1)
 # definition that you're about to add to rely on the TARGET_LIKE_XXX
 # definitions that yotta provides based on the target.json file.
 #
-add_definitions("-DCPU_MK64FN1M0VMD12 -DTARGET_K64F")
+add_definitions("-DCPU_MK64FN1M0VMD12")
 
 # append non-generic flags, and set K64F-specific link script
 
