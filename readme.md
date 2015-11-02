@@ -1,8 +1,8 @@
-## yotta Target Description Using GCC to Compile for Freescale K64F Chips
+## yotta Target Description Using GCC to Compile for Freescale Kinetis K64 Chips
 
 This is a [yotta](https://github.com/ARMmbed/yotta) target description for
-compiling for Freescale's K64F family of microcontrollers. Currently only the
-Mk64Fn1M0Vll12 is supported. You should not normally use this target
+compiling for Freescale's Kinetis K64 family of microcontrollers. Currently
+only the Mk64Fn1M0Vll12 is supported. You should not normally use this target
 description directly, but instead use a more specific description of a target
 board.
 
