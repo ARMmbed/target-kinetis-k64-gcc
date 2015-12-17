@@ -2,7 +2,7 @@
   "name": "kinetis-k64-gcc",
   "version": "1.0.0",
   "inherits": {
-    "mbed-gcc": "~0.1.3"
+    "mbed-gcc": "^1.0.0"
   },
   "description": "Official mbed build target for Freescale Kinetis K64 family chips.",
   "licenses": [
