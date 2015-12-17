@@ -1,6 +1,6 @@
 {
   "name": "kinetis-k64-gcc",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "inherits": {
     "mbed-gcc": "^1.0.0"
   },
@@ -22,8 +22,7 @@
     "gcc"
   ],
   "config": {
-    "mbed-os": {
-    },
+    "mbed-os": {},
     "cmsis": {
       "nvic": {
         "ram_vector_address": "0x1FFF0000",
@@ -35,8 +34,7 @@
     "uvisor": {
       "present": 1
     },
-    "hardware": {
-    }
+    "hardware": {}
   },
   "similarTo": [
     "k64f",
