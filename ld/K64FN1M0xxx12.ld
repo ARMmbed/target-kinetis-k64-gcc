@@ -7,7 +7,8 @@ MEMORY
   VECTORS (rx)          : ORIGIN = 0x00000000, LENGTH = 0x00000400
   FLASH_PROTECTION (rx) : ORIGIN = 0x00000400, LENGTH = 0x00000010
   FLASH (rx)            : ORIGIN = 0x00000410, LENGTH = 0x00100000 - 0x00000410
-  RAM (rwx)             : ORIGIN = 0x1FFF0200, LENGTH = 0x00040000 - 0x00000200
+  RAM (rwx)             : ORIGIN = 0x1FFF0000, LENGTH = 0x00010000 
+  RAM2 (rwx)            : ORIGIN = 0x20000000, LENGTH = 0x00030000 
 }
 
 /* Linker script to place sections and symbol values. Should be used together
@@ -130,7 +131,7 @@ SECTIONS
         __StackLimit = .;
         *(.stack*);
         . += 0x8000 - (. - __StackLimit);
-    } > RAM
+    } > RAM2
 
     /* Set stack top to end of RAM, and stack limit move down by
      * size of stack_dummy section */
@@ -229,9 +230,9 @@ SECTIONS
         __end__ = .;
         end = __end__;
         *(.heap*);
-        . += (ORIGIN(RAM) + LENGTH(RAM) - .);
+        . += (ORIGIN(RAM2) + LENGTH(RAM2) - .);
         __HeapLimit = .;
-    } > RAM
+    } > RAM2
     PROVIDE(__heap_size = SIZEOF(.heap));
     PROVIDE(__mbed_sbrk_start = ADDR(.heap));
     PROVIDE(__mbed_krbs_start = ADDR(.heap) + SIZEOF(.heap));
