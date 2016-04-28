@@ -7,7 +7,8 @@ MEMORY
   VECTORS (rx)          : ORIGIN = 0x00000000, LENGTH = 0x00000400
   FLASH_PROTECTION (rx) : ORIGIN = 0x00000400, LENGTH = 0x00000010
   FLASH (rx)            : ORIGIN = 0x00000410, LENGTH = 0x00100000 - 0x00000410
-  RAM (rwx)             : ORIGIN = 0x1FFF0000, LENGTH = 0x00010000 
+  RAM_RESERVED (rwx)    : ORIGIN = 0x1FFF0000, LENGTH = 0x00000200
+  RAM (rwx)             : ORIGIN = 0x1FFF0200, LENGTH = 0x00010000 - 0x00000200
   RAM2 (rwx)            : ORIGIN = 0x20000000, LENGTH = 0x00030000 
 }
 
@@ -130,13 +131,10 @@ SECTIONS
     {
         __StackLimit = .;
         *(.stack*);
-        . += 0x8000 - (. - __StackLimit);
-    } > RAM2
+        . += (ORIGIN(RAM) + LENGTH(RAM) - .);
+        __StackTop = .;
+    } > RAM
 
-    /* Set stack top to end of RAM, and stack limit move down by
-     * size of stack_dummy section */
-    __StackTop = ADDR(.stack) + SIZEOF(.stack);
-    __StackLimit = ADDR(.stack);
     PROVIDE(__stack = __StackTop);
 
     .data :
@@ -171,7 +169,7 @@ SECTIONS
         . = ALIGN(32);
         __data_end__ = .;
 
-    } >RAM AT>FLASH
+    } >RAM2 AT>FLASH
 
     /* uvisor configuration data */
     .uvisor.secure :
@@ -215,7 +213,7 @@ SECTIONS
         KEEP(*(.keep.uninitialized))
         . = ALIGN(32);
         __uninitialized_end = .;
-    } > RAM
+    } > RAM2
 
     .bss (NOLOAD):
     {
@@ -223,7 +221,7 @@ SECTIONS
         *(.bss*)
         *(COMMON)
         __bss_end__ = .;
-    } > RAM
+    } > RAM2
 
     .heap (NOLOAD):
     {
@@ -240,6 +238,6 @@ SECTIONS
     /* Provide physical memory boundaries for uVisor. */
     __uvisor_flash_start = ORIGIN(VECTORS);
     __uvisor_flash_end = ORIGIN(FLASH) + LENGTH(FLASH);
-    __uvisor_sram_start = ORIGIN(RAM) - 0x200;
-    __uvisor_sram_end = ORIGIN(RAM) + LENGTH(RAM);
+    __uvisor_sram_start = ORIGIN(RAM_RESERVED);
+    __uvisor_sram_end = ORIGIN(RAM2) + LENGTH(RAM2);
 }
