@@ -1,6 +1,6 @@
 {
   "name": "kinetis-k64-gcc",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "inherits": {
     "mbed-gcc": "^1.0.0"
   },
